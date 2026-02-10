@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:radial-gradient(circle,#ff9a9e,#fad0c4);
+  overflow-x:hidden;
+}
+
+/* PASSWORD SCREEN */
+#lockScreen{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:linear-gradient(135deg,#ff2a75,#ff7aa5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:white;
+}
+
+input{
+  padding:12px;
+  font-size:16px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+button{
+  padding:12px 24px;
+  margin-top:12px;
+  border:none;
+  border-radius:30px;
+  background:white;
+  color:#ff2a75;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{ transform:scale(1.1); }
+
+/* MAIN */
+#mainContent{
+  display:none;
+  padding:20px;
+  text-align:center;
+}
+
+.card{
+  background:rgba(255,255,255,0.9);
+  padding:20px;
+  border-radius:20px;
+  margin-top:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.mainImg{
+  width:90%;
+  max-width:320px;
+  border-radius:20px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.3);
+  cursor:pointer;
+}
+
+/* POPUP IMAGE */
+#popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+#popup img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:25px;
+  box-shadow:0 0 40px hotpink;
+}
+
+/* LOVE POPUP */
+#lovePopup{
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.8);
+  z-index:10;
+}
+
+.loveBox{
+  background:linear-gradient(45deg,#ff2a75,#ff7aa5);
+  color:white;
+  padding:40px;
+  border-radius:30px;
+  font-size:28px;
+  text-align:center;
+  box-shadow:0 0 40px pink;
+  animation:pop 0.6s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* FIREWORKS */
+.fire{
+  position:fixed;
+  width:6px;height:6px;
+  border-radius:50%;
+  animation:explode 1s linear forwards;
+}
+@keyframes explode{
+  to{
+    transform:translate(var(--x),var(--y));
+    opacity:0;
+  }
+}
+
+/* HEART FLOAT */
+.heart{
+  position:fixed;
+  bottom:-10px;
+  font-size:20px;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  to{ transform:translateY(-110vh); opacity:0;}
+}
+
+/* MUSIC BUTTON */
+.musicBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#ff2a75;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="lockScreen">
+<h2>❤️ Enter Secret Code ❤️</h2>
+<input id="passwordInput" type="password">
+<button onclick="checkPassword()">Enter</button>
+</div>
+
+<div id="mainContent">
+
+<h1>Happy Valentine's ❤️</h1>
+
+<img src="photo1.jpg" class="mainImg" onclick="openPopup()">
+
+<div class="card">
+<h2> Aapke Liye Ek Sawaal </h2>
+<p style="font-size:20px;">Will you be mine forever? ❤️</p>
+
+<div style="position:relative;height:80px;">
+<button onclick="yesAnswer()">YES ❤️</button>
+<button id="noBtn" onmouseover="moveNo()">NO 🙈</button>
+</div>
+
+</div>
+</div>
+
+<div id="popup" onclick="closePopup()">
+<img src="photo1.jpg">
+</div>
+
+<!-- LOVE POPUP -->
+<div id="lovePopup" onclick="this.style.display='none'">
+<div class="loveBox">
+❤️ I love you Bhambhala ❤️
+</div>
+</div>
+
+<audio id="bgMusic" loop>
+<source src="One-Love-Emotional-Piano-Strings(chosic.com).mp3">
+</audio>
+
+<button class="musicBtn" onclick="toggleMusic()">🎵 Play Music</button>
+
+<script>
+
+const correctPassword="2419";
+
+function checkPassword(){
+ if(passwordInput.value===correctPassword){
+   lockScreen.style.display="none";
+   mainContent.style.display="block";
+ }else alert("Wrong password ❤️");
+}
+
+passwordInput.addEventListener("keypress",e=>{
+ if(e.key==="Enter") checkPassword();
+});
+
+/* IMAGE POPUP */
+function openPopup(){ popup.style.display="flex"; }
+function closePopup(){ popup.style.display="none"; }
+
+/* YES CLICK */
+function yesAnswer(){
+ document.getElementById("lovePopup").style.display="flex";
+ hearts();
+ fireworks();
+}
+
+/* NO MOVE */
+function moveNo(){
+ noBtn.style.position="absolute";
+ noBtn.style.top=Math.random()*60+"px";
+ noBtn.style.left=Math.random()*200+"px";
+}
+
+/* HEARTS */
+function hearts(){
+ for(let i=0;i<25;i++){
+   let h=document.createElement("div");
+   h.className="heart";
+   h.innerHTML="❤️";
+   h.style.left=Math.random()*100+"vw";
+   document.body.appendChild(h);
+ }
+}
+
+/* FIREWORKS */
+function fireworks(){
+ for(let i=0;i<120;i++){
+   let f=document.createElement("div");
+   f.className="fire";
+   f.style.background=`hsl(${Math.random()*360},100%,60%)`;
+   f.style.left="50vw";
+   f.style.top="50vh";
+   f.style.setProperty('--x',(Math.random()*400-200)+"px");
+   f.style.setProperty('--y',(Math.random()*400-200)+"px");
+   document.body.appendChild(f);
+   setTimeout(()=>f.remove(),1000);
+ }
+}
+
+/* MUSIC */
+let playing=false;
+function toggleMusic(){
+ const music=bgMusic;
+ const btn=document.querySelector(".musicBtn");
+
+ if(!playing){
+   music.play().catch(()=>{});
+   btn.innerHTML="⏸ Pause Music";
+   playing=true;
+ }else{
+   music.pause();
+   btn.innerHTML="🎵 Play Music";
+   playing=false;
+ }
+}
+
+</script>
+</body>
+</html>
